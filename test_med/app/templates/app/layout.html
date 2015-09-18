@@ -1,0 +1,21 @@
+{% load static %}
+
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+        <title>Тестовое задание от Дмитрия Колдунова</title>
+
+        {% block scripts %}
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+            <link rel="stylesheet" type="text/css" media="all" href="{% static "app/css/main.css" %}" />
+        {% endblock %}
+    </head>
+    <body>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
