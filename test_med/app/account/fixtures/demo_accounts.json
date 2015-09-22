@@ -1,5 +1,17 @@
-
 [
+    {
+        "model": "account.Account",
+        "fields": {
+            "email": "admin@test.test",
+            "password": "pbkdf2_sha256$20000$ranqe1b6dNOs$rrljflWB93INl5UA/lk/V10W1yw7Fmsr3cwkO4GoSgU=",
+            "first_name": "Алан",
+            "last_name": "Админов",
+            "job": "Администратор",
+            "is_superuser": "1",
+            "employee_type": "manager",
+            "can_book": "0"
+        }
+    },
     {
         "model": "account.Account",
         "fields": {
@@ -7,7 +19,9 @@
             "password": "pbkdf2_sha256$20000$ranqe1b6dNOs$rrljflWB93INl5UA/lk/V10W1yw7Fmsr3cwkO4GoSgU=",
             "first_name": "Иван",
             "last_name": "Иванов",
-            "job": "Хирург"
+            "job": "Хирург",
+            "employee_type": "doctor",
+            "can_book": "1"
         }
     },
     {
@@ -17,7 +31,9 @@
             "password": "pbkdf2_sha256$20000$eTf4Ba9WqJqj$AWxGRoo0ohRXE8F2Io1Qh+WJHBme2lvLtL6941khUgo=",
             "first_name": "Петр",
             "last_name": "Петров",
-            "job": "Терапевт"
+            "job": "Терапевт",
+            "employee_type": "doctor",
+            "can_book": "1"
         }
     },
     {
@@ -27,7 +43,9 @@
             "password": "pbkdf2_sha256$20000$Wi7MBW6hbrnj$0i65vkwIcmFAz5eX5szX11NVSBxvFZEwep6OPQXFsAg=",
             "first_name": "Лариса",
             "last_name": "Глазкова",
-            "job": "Окулист"
+            "job": "Окулист",
+            "employee_type": "doctor",
+            "can_book": "1"
         }
-    },
+    }
 ]
