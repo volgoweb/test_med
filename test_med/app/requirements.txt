@@ -1,8 +1,6 @@
 django>=1.8
 python-dateutil
-mysql-python
-django-endless-pagination
-django-datetime-widget
-django_select2
 more_itertools
 django-timezones
+nodeenv
+django-bower

@@ -43,7 +43,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'schedule',
     'djangobower',
 
     'app',
@@ -154,8 +153,3 @@ BOWER_INSTALLED_APPS = (
     'angular',
 )
 # end Bower
-
-#
-# Schedule
-#
-GET_EVENTS_FUNC = get_records
