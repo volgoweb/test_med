@@ -1,0 +1,50 @@
+{% extends "app/layout.html" %}
+{% load static %}
+
+{% block scripts %}
+    {{ block.super }}
+    {{ form.media }}
+
+    <script src="{% static "booking/js/booking.js" %}"></script>
+    <link rel="stylesheet" href="{% static "booking/css/booking.css" %}">
+{% endblock %}
+
+{% block content %}
+    <div class="book" ng-app="booking" ng-controller="chooseDateTime as dt">
+        <form action="" method="POST" name="bookingForm" accept-charset="utf-8">
+            {% csrf_token %}
+            <div class="modal fade" id="booking-form-fields" tabindex="-1" role="dialog" aria-labelledby="booking-form-label">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="booking-form-label">3) Укажите свои имя</h4>
+                  </div>
+                  <div class="modal-body">
+                      {{ form.datetime }}
+                      <p><label>{{ form.patient_fio.label }}</label>{{ form.patient_fio }}</p>
+                  </div>
+                  <div class="modal-footer">
+                      <input type="submit" class="btn btn-primary" value="Записаться"/>
+                  </div>
+                </div> {# .modal-content #}
+              </div> {# .modal-dialog #}
+            </div> {# .modal #}
+
+            <div class="row-fluid">
+                <div class="book__choose-doctor-col col-md-2">
+                    <h4>1) Выберите врача</h4>
+                    <p>{{ form.doctor }}</p>
+                    {# <select name="doctor" ng-model="doctor" ng-change="dt.updateWeek()"> #}
+                    {#     <option value="1">volgoweb</option> #}
+                    {# </select> #}
+                </div>
+
+                <div class="book__choose-dt-col col-md-10">
+                    <h4>2) Выберите дату и время</h4>
+                    {% include "booking/calendar_widget/week.html" %}
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

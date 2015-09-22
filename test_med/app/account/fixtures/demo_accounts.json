@@ -1,0 +1,33 @@
+
+[
+    {
+        "model": "account.Account",
+        "fields": {
+            "email": "doctor1@test.test",
+            "password": "pbkdf2_sha256$20000$ranqe1b6dNOs$rrljflWB93INl5UA/lk/V10W1yw7Fmsr3cwkO4GoSgU=",
+            "first_name": "Иван",
+            "last_name": "Иванов",
+            "job": "Хирург"
+        }
+    },
+    {
+        "model": "account.Account",
+        "fields": {
+            "email": "doctor2@test.test",
+            "password": "pbkdf2_sha256$20000$eTf4Ba9WqJqj$AWxGRoo0ohRXE8F2Io1Qh+WJHBme2lvLtL6941khUgo=",
+            "first_name": "Петр",
+            "last_name": "Петров",
+            "job": "Терапевт"
+        }
+    },
+    {
+        "model": "account.Account",
+        "fields": {
+            "email": "doctor3@test.test",
+            "password": "pbkdf2_sha256$20000$Wi7MBW6hbrnj$0i65vkwIcmFAz5eX5szX11NVSBxvFZEwep6OPQXFsAg=",
+            "first_name": "Лариса",
+            "last_name": "Глазкова",
+            "job": "Окулист"
+        }
+    },
+]

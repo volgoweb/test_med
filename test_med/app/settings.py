@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for app project.
 
@@ -12,6 +13,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
+from app.booking.utils import get_records
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -40,9 +43,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'schedule',
+    'djangobower',
 
     'app',
-    'app.schedule',
+    'app.account',
+    'app.booking',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -74,6 +80,10 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_CONTEXT_PROCESSORS = [
+    "django.core.context_processors.request",
+]
+
 WSGI_APPLICATION = 'app.wsgi.application'
 
 
@@ -93,13 +103,14 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
+# TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -111,8 +122,31 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static_all')
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
+    'djangobower.finders.BowerFinder',
 )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "files")
 MEDIA_URL = '/files/'
+
+# Замена штатного пользователя на account
+AUTH_USER_MODEL = 'account.Account'
+AUTHENTICATION_BACKENDS = (
+    'app.account.auth_backends.AccountModelBackend',
+)
+
+
+#
+# Bower
+#
+BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_DIR, 'components')
+BOWER_INSTALLED_APPS = (
+    'jquery',
+    'bootstrap',
+    'angular',
+)
+# end Bower
+
+#
+# Schedule
+#
+GET_EVENTS_FUNC = get_records

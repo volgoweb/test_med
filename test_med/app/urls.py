@@ -17,11 +17,11 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic import TemplateView
 
-from app.schedule import urls as schedule_urls
+from app.booking import urls as booking_urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^$', TemplateView.as_view(template_name='app/front_page.html'), name='front_page'),
-    url(r'^schedule/', include(schedule_urls, namespace='schedule')),
+    url(r'^booking/', include(booking_urls, namespace='booking')),
 ]

@@ -1,0 +1,14 @@
+.bcalwidg-hour__time-label, 
+.bcalwidg-day__hour {
+    line-height: 30px;
+}
+
+.bcalwidg-day__hour {
+    border-bottom: 1px solid silver;
+    height: 37px;
+    padding: 2px;
+}
+
+.bcalwidg-hour__time-label {
+    margin-right: 5px;
+}

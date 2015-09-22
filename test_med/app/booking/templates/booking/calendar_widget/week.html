@@ -1,0 +1,37 @@
+
+<div class="bcalwidg bcalwidg_week row-fluid">
+    <div class="bcalwidg__day col-md-1" >
+        <label>Часы\Даты</label>
+        {% for h in hour_labels %}
+            <div class="bcalwidg-day__hour row" >
+                <span class="bcalwidg-hour__time-label pull-left">{{ h }}</span>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div
+        class="bcalwidg__day col-md-1"
+        ng-repeat="d in days"
+        ng-class="{past: d.in_past == false}"
+    >
+        {% verbatim %}
+            <label>{{ d.date }}</label>
+
+            <div
+                class="bcalwidg-day__hour row"
+                ng-repeat="h in d.hours"
+            >
+                <span
+                    class="bcalwidg-hour__busy-flag pull-left"
+                    ng-show="h.is_busy == true && h.in_past == false"
+                >Нет записи</span>
+                <a
+                    href=""
+                    class="bcalwidg-hour__booking-btn pull-left btn btn-success btn-sm"
+                    ng-show="h.is_busy == false && h.in_past == false"
+                    ng-click="dt.book(h.datetime_str)"
+                >Записаться</a>
+                </div>
+        {% endverbatim %}
+    </div>
+</div>
