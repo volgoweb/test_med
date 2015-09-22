@@ -11,7 +11,6 @@ from django.contrib.auth.models import (
 )
 from django.utils.translation import ugettext as _
 from django.utils import timezone
-from timezones.fields import TimeZoneField
 
 
 class AccountManager(BaseUserManager):
@@ -68,7 +67,6 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True, verbose_name=u'Активен')
     # должность
     job = models.CharField(u'Должность', max_length = 50, null=True, blank=True)
-    time_zone = TimeZoneField(verbose_name=u'Часовой пояс')
     employee_type = models.CharField(max_length=20, choices=EMPLOYEE_TYPE_CHOICES.items(), verbose_name=u'Категория персонала')
     # дата создания учетки
     created = models.DateTimeField(_('created'), default=timezone.now)

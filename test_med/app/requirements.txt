@@ -1,6 +1,5 @@
 django>=1.8
 python-dateutil
 more_itertools
-django-timezones
 nodeenv
 django-bower
