@@ -11,7 +11,7 @@
         >следующая неделя</span>
     </div>
 
-    <div class="bcalwidg__day col-md-1" >
+    <div class="bcalwidg__day col-md-2" >
         <label>Часы\Даты</label>
         {% for h in hour_labels %}
             <div class="bcalwidg-day__hour row" >
@@ -21,12 +21,12 @@
     </div>
 
     <div
-        class="bcalwidg__day col-md-1"
+        class="bcalwidg__day col-md-2"
         ng-repeat="d in days"
         ng-class="{past: d.in_past == false}"
     >
         {% verbatim %}
-            <label>{{ d.date }}</label>
+            <label>{{ d.label }}</label>
 
             <div
                 class="bcalwidg-day__hour row"

@@ -101,7 +101,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'Europe/Moscow'
 # TIME_ZONE = 'UTC'
@@ -111,6 +111,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = False
+
+FULL_DATETIME_FORMAT = 'd.m.Y H:i'
+SHORT_DATE_FORMAT = 'd.m.Y'
+WEEK_DAY_DATE_FORMAT = 'D (d.m.Y)'
 
 
 # Static files (CSS, JavaScript, Images)

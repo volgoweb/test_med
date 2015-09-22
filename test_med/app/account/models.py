@@ -41,6 +41,14 @@ class AccountManager(BaseUserManager):
     def get_by_natural_key(self, email):
         return self.get(email=email)
 
+    def get_doctors_for_book(self):
+        qs = self.get_queryset()
+        return qs.filter(
+            is_active=True,
+            employee_type=self.model.EMPLOYEE_TYPE_DOCTOR,
+            can_book=True,
+        )
+
 
 class Account(AbstractBaseUser, PermissionsMixin):
     """
@@ -59,7 +67,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     # Флаг, для временного отключения учетки
     is_active = models.BooleanField(default=True, verbose_name=u'Активен')
     # должность
-    job = models.CharField(_('job'), max_length = 50, null=True, blank=True)
+    job = models.CharField(u'Должность', max_length = 50, null=True, blank=True)
     time_zone = TimeZoneField(verbose_name=u'Часовой пояс')
     employee_type = models.CharField(max_length=20, choices=EMPLOYEE_TYPE_CHOICES.items(), verbose_name=u'Категория персонала')
     # дата создания учетки

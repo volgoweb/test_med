@@ -46,7 +46,7 @@ class AccountAdmin(UserAdmin):
     list_filter = ('is_superuser',)
     fieldsets = (
         (None, {'fields': ('email', 'password',)}),
-        ('Personal info', {'fields': ('first_name', 'middle_name', 'last_name', 'time_zone')}),
+        ('Personal info', {'fields': ('first_name', 'middle_name', 'last_name', 'time_zone', 'employee_type', 'job', 'can_book')}),
         ('Permissions', {
             'fields': (
                 'is_active',

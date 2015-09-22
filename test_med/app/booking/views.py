@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+import calendar
 from datetime import date, timedelta, datetime, time
 from dateutil.relativedelta import relativedelta, MO
 
@@ -60,25 +61,23 @@ class RecordsJson(View):
 
     def generate_day_objects(self):
         datetimes = self.get_busy_datetimes()
-        print '----------------- get_busy_datetimes:'
-        print datetimes
         now = datetime.now()
         days = []
-        for num_day in range(0, 7):
+        for num_day in range(0, 5):
             day_date = self.week_start + timedelta(days=num_day)
             hours = []
             # TODO брать часы приема из аккаунта и в зависимости от дня недели
             for h in range(9, 19):
                 dt = datetime.combine(day_date, time(h, 0))
-                print 'dt:{0} now:{1}  dt<now:{2}'.format(dt, now, dt<now)
                 hours.append({
                     'label': '%d:00' % h,
                     'is_busy': True if dt in datetimes else False,
                     'in_past': True if dt < now else False,
                     'datetime_str': dt.strftime('%d.%m.%Y %H:%M:%S'),
                 })
+            from django.utils import formats
             day = {
-                'date': day_date,
+                'label': formats.date_format(datetime.combine(day_date, time(0,0,1)), 'WEEK_DAY_DATE_FORMAT'),
                 'in_past': True if day_date < now.date() else False,
                 'hours': hours
             }
@@ -86,12 +85,6 @@ class RecordsJson(View):
         return days
 
     def get_busy_datetimes(self):
-        print '----------- Record.objects.all().for_doctor(self.doctor):'
-        print Record.objects.all().for_doctor(self.doctor)
-        print '----------- Record.objects.all().for_doctor(self.doctor).filter( datetime__lte=self.week_start, datetime__gte=self.week_end,):'
-        print self.week_start
-        print self.week_end
-        print Record.objects.all().for_doctor(self.doctor).filter( datetime__gte=datetime.combine(self.week_start, time(0, 0, 1)), datetime__lte=datetime.combine(self.week_end, time(23, 59, 59)),)
         datetimes = Record.objects.all().for_doctor(self.doctor).filter(
             datetime__gte=datetime.combine(self.week_start, time(0, 0, 1)),
             datetime__lte=datetime.combine(self.week_end, time(23, 59, 59)),
@@ -106,7 +99,6 @@ class RecordsJson(View):
         else:
             date_from = datetime.strptime(date_from, '%d.%m.%Y').date()
 
-        print date_from
         last_monday = date_from + relativedelta(weekday=MO(-1))
         date_from = last_monday
 
