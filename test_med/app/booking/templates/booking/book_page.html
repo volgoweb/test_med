@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block content %}
+    <h1>Запись к врачу</h1>
     <div class="book" ng-app="booking" ng-controller="chooseDateTime as dt">
         <form action="" method="POST" name="bookingForm" accept-charset="utf-8">
             {% csrf_token %}

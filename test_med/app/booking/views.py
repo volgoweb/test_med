@@ -39,21 +39,11 @@ class BookOnline(CreateView):
         return result
 
     def get_success_url(self):
-        rev = reverse_lazy('booking:book_online')
-        return '/booking/book-online/'
-        assert False
         return reverse_lazy('booking:book_online')
-
-    def form_invalid(self, form):
-        result = super(BookOnline, self).form_invalid(form)
-        print '--------------- form_invalid'
-        print form.errors
-        return result
 
 
 class RecordsJson(View):
     def get(self, *args, **kwargs):
-        print self.request.GET.get('doctor', '--------no doctors')
         self.doctor = get_object_or_404(Account, pk=self.request.GET.get('doctor', None))
         self.define_week_params()
         days = self.generate_day_objects()
