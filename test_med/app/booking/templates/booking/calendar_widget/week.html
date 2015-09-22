@@ -1,5 +1,16 @@
 
 <div class="bcalwidg bcalwidg_week row-fluid">
+    <div class="bcalwidg_week-controls">
+        <span
+            class="bcalwidg-week-control__prev btn btn-default"
+            ng-click="dt.prevWeek()"
+        >предыдущая неделя</span>
+        <span
+            class="bcalwidg-week-control__next btn btn-default"
+            ng-click="dt.nextWeek()"
+        >следующая неделя</span>
+    </div>
+
     <div class="bcalwidg__day col-md-1" >
         <label>Часы\Даты</label>
         {% for h in hour_labels %}

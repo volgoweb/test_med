@@ -99,12 +99,16 @@ class RecordsJson(View):
         return datetimes
 
     def define_week_params(self):
-        date_from = self.request.GET.get('date_from')
+        date_from = self.request.GET.get('date_from', None)
 
         if not date_from:
-            today = date.today()
-            last_monday = today + relativedelta(weekday=MO(-1))
-            date_from = last_monday
+            date_from = date.today()
+        else:
+            date_from = datetime.strptime(date_from, '%d.%m.%Y').date()
+
+        print date_from
+        last_monday = date_from + relativedelta(weekday=MO(-1))
+        date_from = last_monday
 
         # week_range = [date_from]
         # for num_day in range(2, 8):
