@@ -56,21 +56,21 @@ class Account(AbstractBaseUser, PermissionsMixin):
     EMPLOYEE_TYPE_DOCTOR = 'doctor'
     EMPLOYEE_TYPE_MANAGER = 'manager'
     EMPLOYEE_TYPE_CHOICES = OrderedDict([
-        (EMPLOYEE_TYPE_DOCTOR, u'Доктор'),
-        (EMPLOYEE_TYPE_MANAGER, u'Менеджер'),
+        (EMPLOYEE_TYPE_DOCTOR, _(u'Доктор')),
+        (EMPLOYEE_TYPE_MANAGER, _(u'Менеджер')),
     ])
     email = models.EmailField(_('email address'), max_length = 255, unique=True)
     first_name = models.CharField(_('first name'), max_length=30)
     middle_name = models.CharField(_('middle name'), max_length=30, null=True, blank=True)
     last_name = models.CharField(_('last name'), max_length=30)
     # Флаг, для временного отключения учетки
-    is_active = models.BooleanField(default=True, verbose_name=u'Активен')
+    is_active = models.BooleanField(default=True, verbose_name=_(u'Активен'))
     # должность
-    job = models.CharField(u'Должность', max_length = 50, null=True, blank=True)
-    employee_type = models.CharField(max_length=20, choices=EMPLOYEE_TYPE_CHOICES.items(), verbose_name=u'Категория персонала')
+    job = models.CharField(_(u'Должность'), max_length = 50, null=True, blank=True)
+    employee_type = models.CharField(max_length=20, choices=EMPLOYEE_TYPE_CHOICES.items(), verbose_name=_(u'Категория персонала'))
     # дата создания учетки
     created = models.DateTimeField(_('created'), default=timezone.now)
-    can_book = models.BooleanField(default=False, verbose_name=u'Осуществляет прием по записи')
+    can_book = models.BooleanField(default=False, verbose_name=_(u'Осуществляет прием по записи'))
 
     objects = AccountManager()
 

@@ -1,18 +1,19 @@
+{% load i18n %}
 
 <div class="bcalwidg bcalwidg_week row-fluid">
     <div class="bcalwidg_week-controls">
         <span
             class="bcalwidg-week-control__prev btn btn-default"
             ng-click="dt.prevWeek()"
-        >предыдущая неделя</span>
+        ><span class="glyphicon glyphicon-chevron-left"></span> {% trans "предыдущая неделя" %}</span>
         <span
             class="bcalwidg-week-control__next btn btn-default"
             ng-click="dt.nextWeek()"
-        >следующая неделя</span>
+        >{% trans "следующая неделя" %} <span class="glyphicon glyphicon-chevron-right"></span></span>
     </div>
 
     <div class="bcalwidg__day col-md-2" >
-        <label>Часы\Даты</label>
+        <label>{% trans "Часы\Даты" %}</label>
         {% for h in hour_labels %}
             <div class="bcalwidg-day__hour row" >
                 <span class="bcalwidg-hour__time-label pull-left">{{ h }}</span>
@@ -25,8 +26,9 @@
         ng-repeat="d in days"
         ng-class="{past: d.in_past == false}"
     >
-        {% verbatim %}
-            <label>{{ d.label }}</label>
+            {% verbatim %}
+                <label>{{ d.label }}</label>
+            {% endverbatim %}
 
             <div
                 class="bcalwidg-day__hour row"
@@ -35,14 +37,13 @@
                 <span
                     class="bcalwidg-hour__busy-flag pull-left"
                     ng-show="h.is_busy == true && h.in_past == false"
-                >Нет записи</span>
+                >{% trans "Нет записи" %}</span>
                 <a
                     href=""
                     class="bcalwidg-hour__booking-btn pull-left btn btn-success btn-sm"
                     ng-show="h.is_busy == false && h.in_past == false"
                     ng-click="dt.book(h.datetime_str)"
-                >Записаться</a>
+                >{% trans "Записаться" %}</a>
                 </div>
-        {% endverbatim %}
     </div>
 </div>

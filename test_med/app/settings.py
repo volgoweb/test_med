@@ -13,8 +13,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-
-from app.booking.utils import get_records
+from datetime import time
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -100,8 +99,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-# LANGUAGE_CODE = 'ru-RU'
-LANGUAGE_CODE = 'en-EN'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'Europe/Moscow'
 # TIME_ZONE = 'UTC'
@@ -153,3 +151,16 @@ BOWER_INSTALLED_APPS = (
     'angular',
 )
 # end Bower
+
+
+#
+# Constance
+#
+# По-хорошому надо создавать модель для хранения расписания работы 
+# как самой поликлиники, так и каждого врача в отдельности.
+# Время начала работы поликлиники
+APP_DAY_START = time(9, 0)
+# Время окончания работы поликлиники
+APP_DAY_END = time(18, 0)
+# Номера дней недели, начиная с 0, которые считаются выходными
+APP_WEEKENDS = (5,6)

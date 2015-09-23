@@ -1,5 +1,6 @@
 {% extends "app/layout.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block scripts %}
     {{ block.super }}
@@ -10,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Запись к врачу</h1>
+    <h1>{% trans "Запись к врачу" %}</h1>
     <div class="book" ng-app="booking" ng-controller="chooseDateTime as dt">
         <form action="" method="POST" name="bookingForm" accept-charset="utf-8">
             {% csrf_token %}
@@ -19,7 +20,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="booking-form-label">3) Укажите свои имя</h4>
+                    <h4 class="modal-title" id="booking-form-label">{% trans "3) Укажите свои имя" %}</h4>
                   </div>
                   <div class="modal-body">
                       {{ form.datetime }}
@@ -34,7 +35,7 @@
 
             <div class="row-fluid">
                 <div class="book__choose-doctor-col col-md-2">
-                    <h4>1) Выберите врача</h4>
+                    <h4>{% trans "1) Выберите врача" %}</h4>
                     <p>{{ form.doctor }}</p>
                     {# <select name="doctor" ng-model="doctor" ng-change="dt.updateWeek()"> #}
                     {#     <option value="1">volgoweb</option> #}
@@ -42,7 +43,7 @@
                 </div>
 
                 <div class="book__choose-dt-col col-md-10">
-                    <h4>2) Выберите дату и время</h4>
+                    <h4>{% trans "2) Выберите дату и время" %}</h4>
                     {% include "booking/calendar_widget/week.html" %}
                 </div>
             </div>

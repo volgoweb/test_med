@@ -1,5 +1,4 @@
 # -*- coding:utf-8 -*-
-import calendar
 from datetime import date, timedelta, datetime, time
 from dateutil.relativedelta import relativedelta, MO
 
@@ -11,9 +10,11 @@ from django.http import Http404, JsonResponse
 from django.views.generic import CreateView, View
 from django.contrib import messages
 from django.core.urlresolvers import reverse_lazy
+from django.conf import settings
 
 from .models import Record
 from .forms import RecordForm
+from .utils import get_working_weekday_nums
 from app.account.models import Account
 
 class BookOnline(CreateView):
@@ -42,22 +43,26 @@ class BookOnline(CreateView):
         return reverse_lazy('booking:book_online')
 
 
-class RecordsJson(View):
+class RecordsWeekJson(View):
     def get(self, *args, **kwargs):
         self.doctor = get_object_or_404(Account, pk=self.request.GET.get('doctor', None))
-        self.define_week_params()
+        self.define_period_params()
         days = self.generate_day_objects()
         return JsonResponse(days, safe=False)
 
     def generate_day_objects(self):
-        datetimes = self.get_busy_datetimes()
+        datetimes = Record.objects.get_busy_datetimes(
+                doctor=self.doctor,
+                date_from=datetime.combine(self.period_start, time(0, 0, 1)),
+                date_to=datetime.combine(self.period_end, time(23, 59, 59)),
+        )
         now = datetime.now()
         days = []
-        for num_day in range(0, 5):
-            day_date = self.week_start + timedelta(days=num_day)
+        for num_day in get_working_weekday_nums():
+            day_date = self.period_start + timedelta(days=num_day)
             hours = []
             # TODO брать часы приема из аккаунта и в зависимости от дня недели
-            for h in range(9, 19):
+            for h in range(settings.APP_DAY_START.hour, settings.APP_DAY_END.hour + 1):
                 dt = datetime.combine(day_date, time(h, 0))
                 hours.append({
                     'label': '%d:00' % h,
@@ -74,14 +79,10 @@ class RecordsJson(View):
             days.append(day)
         return days
 
-    def get_busy_datetimes(self):
-        datetimes = Record.objects.all().for_doctor(self.doctor).filter(
-            datetime__gte=datetime.combine(self.week_start, time(0, 0, 1)),
-            datetime__lte=datetime.combine(self.week_end, time(23, 59, 59)),
-        ).values_list('datetime', flat=True)
-        return datetimes
-
-    def define_week_params(self):
+    def define_period_params(self):
+        """
+        Исходя из GET-параметров определяем период, по которому нужно возвратить данные.
+        """
         date_from = self.request.GET.get('date_from', None)
 
         if not date_from:
@@ -92,9 +93,5 @@ class RecordsJson(View):
         last_monday = date_from + relativedelta(weekday=MO(-1))
         date_from = last_monday
 
-        # week_range = [date_from]
-        # for num_day in range(2, 8):
-        #     d = date_from + timedelta(days=num_day)
-        #     week_range.append(d)
-        self.week_start = date_from
-        self.week_end = date_from + timedelta(days=7)
+        self.period_start = date_from
+        self.period_end = date_from + timedelta(days=7)
